@@ -1,0 +1,60 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Getting started with JavaScript</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body, .jumbotron { padding: 30px; }
+        body {
+            background: #EFEFEF;
+        }
+        .content {
+            background: #FFF;
+            padding: 50px;
+            font-size: 19px;
+            line-height: 1.5;
+            min-height: 3000px;
+        }
+        .scroll-line  {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 8px;
+            background: #1CE;
+            transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1) width;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-line"></div>
+
+    <div class="container">
+        <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur consequuntur cum fugit nihil reprehenderit sequi tenetur! Culpa deleniti est, eum explicabo fuga mollitia nesciunt odio quaerat quam quos saepe, tempore.</p>
+        </div>
+    </div>
+
+    <script>
+        const scrollLine = document.querySelector('.scroll-line');
+
+        function fillScrollLine() {
+            const windowHeight = window.innerHeight;
+            const fullHeight = document.body.clientHeight;
+            const scrolled = window.scrollY;
+            const percentScrolled = (scrolled / (fullHeight - windowHeight)) * 100;
+
+            console.log(fullHeight);
+            console.log(windowHeight);
+            console.log(fullHeight - windowHeight);
+
+            scrollLine.style.width = percentScrolled + '%';
+        }
+
+        window.addEventListener('scroll', fillScrollLine)
+    </script>
+</body>
+</html>
