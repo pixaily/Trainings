@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Getting started with JavaScript</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body { padding: 30px; }
+        .btn-crazy {
+            position: absolute;
+            top: 30px;
+            left: 35%;
+            width: 30%;
+            transition: 0.1s ease all;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <button type="button" class="btn-crazy btn btn-lg btn-danger">Click Me!</button>
+    <button type="button" class="btn-crazy btn btn-lg btn-primary">Click Me!</button>
+    <button type="button" class="btn-crazy btn btn-lg btn-success">Click Me!</button>
+
+    <script>
+        // Grab elements
+        const crazyButtons = document.querySelectorAll('.btn-crazy');
+        // Define out functions
+        function goCrazy(e) {
+            const button = e.target;
+            // Get a random number for the left offset
+            // const offsetLeft = Math.random() * (window.innerWidth - button.clientWidth); // Variant 1
+            const offsetLeft = Math.random() * (window.innerWidth - this.clientWidth); // Variant 2
+            // Get a random number for the top offset
+            // const offsetTop = Math.random() * (window.innerHeight - this.clientHeight); // Variant 1
+            const offsetTop = Math.random() * (window.innerHeight - this.clientHeight); // Variant 2
+
+            // Apply those numbers to the button
+            this.style.top = offsetTop + 'px';
+            this.style.left = offsetLeft + 'px';
+        }
+
+        // Add event listeners
+        crazyButtons.forEach(function(button) {
+            button.addEventListener('mouseenter', goCrazy);
+        });
+    </script>
+</body>
+</html>
