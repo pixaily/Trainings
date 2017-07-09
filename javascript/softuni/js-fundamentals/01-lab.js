@@ -3,7 +3,7 @@ function sumNumbers(a, b, c) {
     "use strict";
     return (a + b + c);
 }
-// sumNumbers(2, 3, 4);
+// console.log(sumNumbers(2, 3, 4));
 
 // ======================================= //
 
@@ -11,16 +11,17 @@ function sumNumbers(a, b, c) {
 function sumAndVat(arr) {
     "use strict";
     let sum = 0;
-    const vat = 20 / 100;
-    
+    const vat = 20 / 100,
+        vatPrice = sum * vat;
+
     arr.map(function (num) {
         sum += num;
     });
     console.log(sum);
-    console.log(sum * vat);
-    console.log(sum + (sum * vat));
+    console.log(vatPrice);
+    return sum + (sum * vat);
 }
-// sumAndVat([1.20, 2.60, 3.50]);
+// console.log(sumAndVat([1.20, 2.60, 3.50]));
 
 // ======================================= //
 
@@ -39,9 +40,9 @@ function letterInString(string, letter) {
         }
     }
     
-    console.log(counter);
+    return counter;
 }
-// letterInString('helLo', 'L');
+// console.log(letterInString('helLo', 'L'));
 
 // ======================================= //
 
@@ -66,10 +67,10 @@ function filterByAge(min, name1, age1, name2, age2) {
         }
     });
     result.map(student => {
-        console.log(student);
+        return student;
     });
 }
-// filterByAge(3, 'Ivan', 15, 'Asen', 9);
+// console.log(filterByAge(3, 'Ivan', 15, 'Asen', 9));
 
 // ======================================= //
 
@@ -88,18 +89,50 @@ function stringToNumbers(str){
         result += i.toString();
     }
     
-    console.log(result);
+    return result;
 }
-stringToNumbers('11');
+// console.log(stringToNumbers('11'));
 
 // ======================================= //
 
 // 06 Figure Area
 
+function figureArea(w1, h1, w2, h2) {
+    "use strict";
+
+    let s1 = w1 * h1,
+        s2 = w2 * h2,
+        areaOfCommonFigure = Math.min(w1, w2) * Math.min(h1, h2);
+
+    return s1 + s2 - areaOfCommonFigure;
+}
+// console.log(figureArea(1, 1, 1.01, 1));
+// console.log(figureArea(12.45, 23.266, 10.145, 28.561));
+// console.log(figureArea(13, 2, 5, 8));
+
 // ======================================= //
 
 // 07 Next Day
+function nextDay(y, m, d) {
+    const curDate = new Date(y, m - 1, d),
+          timeForNextDate = curDate.getTime() + (24 * 60 * 60 * 1000),
+          nextDay = new Date(timeForNextDate);
+
+    return `${nextDay.getFullYear()}-${nextDay.getMonth() + 1}-${nextDay.getDate()}`;
+}
+
+// console.log(nextDay(1, 1, 1));
+
 
 // ======================================= //
 
 // 08 Distance between Points
+
+function distancePoints(x1, y1, x2, y2) {
+    let x = Math.pow((x2 - x1), 2),
+        y = Math.pow((y2 - y1), 2);
+
+    return Math.sqrt(x + y);
+}
+
+console.log(distancePoints(2, 4, 5, 0));
