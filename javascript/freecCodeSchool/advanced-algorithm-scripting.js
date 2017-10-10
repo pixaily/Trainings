@@ -129,8 +129,87 @@ function sym(args) {
 // Exact Change
 
 function checkCashRegister(price, cash, cid) {
-    var change;
-    // Here is your change, ma'am.
+    var change = [],
+        // Here is your change, ma'am.
+        changeVal = (cash - price).toFixed(2),
+        deskObj = {},
+        changeArr = [],
+        deskValue = 0,
+        temp = 0;
+
+    for(var i = 0, max = cid.length; i < max; i += 1) {
+        var singleValue = 0,
+            curName = cid[i][0],
+            curValue = cid[i][1];
+            deskValue += curValue;
+
+        switch(curName) {
+            case 'PENNY': singleValue = 0.01; break;
+            case 'NICKEL': singleValue = 0.05; break;
+            case 'DIME': singleValue = 0.10; break;
+            case 'QUARTER': singleValue = 0.25; break;
+            case 'ONE': singleValue = 1.00; break;
+            case 'FIVE': singleValue = 5.00; break;
+            case 'TEN': singleValue = 10.00; break;
+            case 'TWENTY': singleValue = 20.00; break;
+            case 'ONE HUNDRED': singleValue = 100.00; break;
+            default: break;
+        }
+
+        deskObj[curName] = {
+            value: singleValue,
+            amount: Number((curValue / singleValue).toFixed(0)),
+            sum: curValue,
+        };
+    }
+
+    deskValue = deskValue.toFixed(2);
+
+    changeVal = Number(changeVal);
+    deskValue = Number(deskValue);
+
+    if(changeVal === deskValue) {
+        return 'Closed';
+    } else if(changeVal > deskValue) {
+        return 'Insufficient Funds';
+    }
+
+    for(var key in deskObj) {
+        var cur = deskObj[key];
+        if(changeVal >= cur['value']) {
+            cur.name = key;
+            changeArr.push(cur);
+            temp += cur.sum
+        }
+    }
+
+    if(temp < changeVal) {
+        return 'Insufficient Funds';
+    }
+
+    for (var j = changeArr.length - 1; j >= 0; j -= 1) {
+        var count = 0,
+            curEl = changeArr[j];
+
+        while (changeVal >= curEl.value) {
+            if (curEl.amount === 0) {
+                break;
+            }
+
+            changeVal = (changeVal - curEl.value).toFixed(2);
+            count += 1;
+            curEl.amount -= 1;
+        }
+
+        if (count !== 0) {
+            change.push([curEl.name, count * curEl.value]);
+        }
+
+        if (changeVal === 0) {
+            break;
+        }
+    }
+
     return change;
 }
 
@@ -145,8 +224,13 @@ function checkCashRegister(price, cash, cid) {
 // ["TWENTY", 60.00],
 // ["ONE HUNDRED", 100.00]]
 
-// console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25],
-// ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+// console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+// console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+// console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+// console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+// console.log(checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
+console.log(checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+// console.log(checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]));
 
 
 // Inventory Update
@@ -213,10 +297,51 @@ var newInv = [
 // No repeats please
 
 function permAlone(str) {
-    return str;
+    var arr = str.split(''),
+        counter = 0,
+        len = arr.length,
+        regEx = /([a-z])\1+/,
+        permutations = [];
+
+
+    function generate(n) {
+        "use strict";
+        console.log(arr);
+        if(n === 1) {
+            if(!regEx.test(arr.join(''))) {
+                counter++;
+            }
+            permutations.push(arr.join(''));
+        } else {
+            for(var i = 0; i !== n ; i += 1) {
+                generate(n - 1);
+                if(n % 2 === 0) {
+                    swap(i, n - 1);
+                } else {
+                    swap(0, n - 1);
+                }
+            }
+        }
+    }
+
+
+    function swap(a,b) {
+        "use strict";
+        var temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+
+    generate(len);
+
+    console.log(permutations);
+
+    return counter;
 }
 
-permAlone('aab');
+// console.log(permAlone('aab'));
+// console.log(permAlone('abfdefa'));
+// console.log(permAlone('aaaaaab'));
 
 
 // Make a Person
@@ -304,7 +429,6 @@ function orbitalPeriod(arr) {
 
 // Pairwise
 
-
 function pairwise(arr, arg) {
     var result = [];
 
@@ -320,8 +444,6 @@ function pairwise(arr, arg) {
             }
         }
     }
-
-    console.log(result);
 
     return result.reduce(function(sum, el) {
         return sum + el;
