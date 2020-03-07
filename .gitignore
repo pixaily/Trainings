@@ -1,4 +1,19 @@
-/.idea/
+.idea/
+.vscode/
+node_modules/
+build
+.DS_Store
+*.tgz
+my-app*
+template/src/__tests__/__snapshots__/
+lerna-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/.changelog
+.npm/
+yarn.lock
+
 
 /git/
 
@@ -8,10 +23,8 @@
 
 /css/
 
-/javascript/telerik/oop-js
 /javascript/javascript
 /javascript/javascript-30
-#/javascript/personal
 /javascript/telerik
 /javascript/exercises
 /javascript/softuni/js-fundamentals/01
