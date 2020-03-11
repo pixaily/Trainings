@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Getting started with JavaScript</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body, .jumbotron { padding: 30px; }
+        .timer {
+            font-size: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron text-center">
+
+        <div class="timer">
+            <span class="minutes">00</span> : <span class="seconds">00</span>
+        </div>
+        <div class="timer-buttons">
+            <button type="button" class="btn btn-lg btn-success" data-action="start">Start</button>
+            <button type="button" class="btn btn-lg btn-danger" data-action="stop">Stop</button>
+            <button type="button" class="btn btn-link btn-block" data-action="reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        const startButton = document.querySelector('[data-action="start"]');
+        const stopButton = document.querySelector('[data-action="stop"]');
+        const resetButton = document.querySelector('[data-action="reset"]');
+        const minutes = document.querySelector('.minutes');
+        const seconds = document.querySelector('.seconds');
+        var timerTime = 00,
+            isRunning = false,
+            interval;
+
+        function startTimer() {
+            if(isRunning) {
+                return;
+            }
+
+            isRunning = true;
+            interval = setInterval(incrementTimer, 1000);
+        }
+
+        function stopTimer() {
+            if(!isRunning) {
+                return;
+            }
+
+            isRunning = false;
+            clearInterval(interval);
+        }
+
+        function resetTimer() {
+            stopTimer();
+
+            timerTime = 0;
+            minutes.innerText = '00';
+            seconds.innerText = '00';
+        }
+
+        function incrementTimer() {
+            timerTime++;
+
+            const numOfMinutes = Math.floor(timerTime / 60);
+            const numOfSeconds = timerTime % 60;
+
+            seconds.innerText = pad(numOfSeconds);
+            minutes.innerText = pad(numOfMinutes);
+        }
+
+        function pad(num) {
+            return num < 10 ? '0' + num : num;
+        }
+
+        startButton.addEventListener('click', startTimer);
+        stopButton.addEventListener('click', stopTimer);
+        resetButton.addEventListener('click', resetTimer);
+
+    </script>
+</body>
+</html>

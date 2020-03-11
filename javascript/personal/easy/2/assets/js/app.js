@@ -17,9 +17,13 @@
 
             events: function() {
                 var _this = this;
+<<<<<<< HEAD
                 document.addEventListener('load', function(e) {
                     console.log(e);
                 });
+=======
+
+>>>>>>> master
                 for(var i = 0; i < this.image.length; i++) {
                     if(!_this.image[i].complete) {
                         this.image[i].addEventListener('load', function(e) {
@@ -47,10 +51,13 @@
                     curWidth = Number(parseFloat(this.progressBar.style.width).toFixed(1)),
                     width = isNaN(curWidth) ? this.percentigePerImage : curWidth + this.percentigePerImage;
 
+<<<<<<< HEAD
                 // if (Math.round(width) >= 100) {
                 //     width = 100;
                 // }
 
+=======
+>>>>>>> master
                 this.progressBar.style.width = width + '%';
                 this.loaderPercent.innerHTML = Math.round(width) + '%';
 
@@ -75,7 +82,11 @@
 
             }
         }
+<<<<<<< HEAD
     })();
+=======
+    }());
+>>>>>>> master
 
     Loader.init();
 })();

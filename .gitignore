@@ -14,7 +14,10 @@ yarn-error.log*
 .npm/
 yarn.lock
 
+<<<<<<< HEAD
 /company-courses
+=======
+>>>>>>> master
 
 /git/
 
