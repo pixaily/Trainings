@@ -1,8 +1,9 @@
 .idea/
 .vscode/
+.DS_Store
+.cache/
 node_modules/
 build
-.DS_Store
 *.tgz
 my-app*
 template/src/__tests__/__snapshots__/
@@ -14,11 +15,6 @@ yarn-error.log*
 .npm/
 yarn.lock
 
-<<<<<<< HEAD
-/company-courses
-=======
->>>>>>> master
-
 /git/
 
 /c#/
@@ -27,12 +23,12 @@ yarn.lock
 
 /css/
 
-/javascript/javascript
-/javascript/javascript-30
-/javascript/telerik
-/javascript/exercises
-/javascript/softuni/js-fundamentals/01
-/javascript/tgpojatw
+/javascript/react/adopt-me/dist
+/javascript/react/adopt-me-old
+/javascript/react/adopt-me-new
+/javascript/react/adopt-me-new
+/javascript/react/test
+/javascript/react/a-m
 
 /php/
 
